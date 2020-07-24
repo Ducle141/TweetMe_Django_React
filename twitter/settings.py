@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'rest_framework',
-    'app'
+    'app',
+    # 'tweets',
+
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
