@@ -1,4 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1> My Twitter </h1>
+    <form id="tweet_create_form">
+        <table>
+            {{form.as_table}}
+        </table>
+        <input type="submit" value="Tweet">
+    </form>
+
+    <div id="tweets">
+        ...Loading
+    </div>
+
+
+
+
 {% endblock %}
