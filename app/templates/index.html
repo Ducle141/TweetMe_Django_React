@@ -4,7 +4,8 @@
         My Twitter
     </h1>
     <div id="error_message"></div>
-    <form id="tweet_create_form">
+    <form id="tweet_create_form" action="create_tweet" method="POST">
+        {% csrf_token %}
         <table>
             {{form.as_table}}
         </table>
@@ -95,7 +96,7 @@
         xhr.send(myFormData)
     }
 
-        function handleTweetAction(tweet_id, action) {
+    function handleTweetAction(tweet_id, action) {
     console.log(action)
     const url = "/api/action"
     const method="POST"

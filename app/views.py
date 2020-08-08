@@ -81,10 +81,10 @@ def action(request):
             obj.likes.add(request.user)
             serializer = TweetSerializer(obj)
             return Response(serializer.data, status=200)
-        # elif action == 'unlike':
-        #     obj.likes.remove(request.user)
-        #     serializer = TweetSerializer(obj)
-        #     return Response(serializer.data, status=200)
+        elif action == 'unlike':
+            obj.likes.remove(request.user)
+            serializer = TweetSerializer(obj)
+            return Response(serializer.data, status=200)
         elif action == 'retweet':
             new_tweet = Tweet.objects.create(
                 user=request.user,
@@ -98,4 +98,34 @@ def action(request):
 def login (request):
     return render (request, 'login.html')
 
+
+
+#-----------
+def create_tweet_pure_django(request):
+    if not request.user.is_authenticated:
+        if request.is_ajax():
+            return JsonResponse({}, status=400) #If request is ajax, we just send an object back, otherwise render whole page
+        JsonResponse({}, status=401)
+        return redirect()
+
+    if request.method == 'POST':
+        form = TweetForm(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.save()
+            if request.is_ajax():
+                return JsonResponse(obj.serialize(), status=201)
+        else:
+            if request.is_ajax():
+                return JsonResponse(form.errors, status=400)
+    return redirect('/')
+
+def tweet_list_view_pure_django(request, *args, **kwargs):
+    qs = Tweet.objects.all()
+    tweets_list = [{"id": x.id, "content": x.content, "like": random.randint(0, 122)} for x in qs]
+    data = {
+        "isUser": False,
+        "response": tweets_list
+    }
+    return JsonResponse(data)
 

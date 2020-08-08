@@ -11,7 +11,7 @@ class TweetActionSerializer(serializers.Serializer):
     action = serializers.CharField()
 
     def validate_action(self, value):
-        value = value.lower().strip()
+        value = value.lower().strip() #'Like' -> "Like"
         if not value in ['like', 'unlike', 'retweet']:
             raise serializers.ValidationError("This is not a valid action for tweets")
         return value
