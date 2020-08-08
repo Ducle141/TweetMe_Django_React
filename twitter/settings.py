@@ -25,7 +25,8 @@ SECRET_KEY = 'ixh+u)7ff(g9z$48yz931(htm)9_swyhe6#uzyyh=9gnvy2%+@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
+TWEET_ACTION_OPTIONS = ['like', 'unlike', 'retweet']
 
 
 # Application definition
@@ -38,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    #third party
+    'rest_framework',
     'app',
-    # 'tweets',
-
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
